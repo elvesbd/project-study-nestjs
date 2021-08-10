@@ -1,7 +1,7 @@
 import {
-  ArgumentsHost,
-  Catch,
   ExceptionFilter,
+  Catch,
+  ArgumentsHost,
   HttpException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
@@ -17,6 +17,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     response.status(status).json({
       statusCode: status,
       timestamp: new Date().toISOString(),
+      // anything you can add in wrr response
       path: request.url,
     });
   }
