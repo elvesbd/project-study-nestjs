@@ -13,7 +13,7 @@ import { UsersServices } from './user.service';
 export class UserModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(LoggerMiddleware, Cors(), helmet())
+      .apply(LoggerMiddleware)
       .exclude(
         { path: 'users', method: RequestMethod.GET },
         { path: 'cats', method: RequestMethod.POST },

@@ -15,10 +15,10 @@ export class UsersServices {
     return Promise.resolve(user);
   }
 
-  getUser(email: string): User {
+  async getUser(email: string): Promise<User> {
     const user = this.users.filter((user) => user.email === email);
     if (user && Array.isArray(user) && user.length > 0) {
-      return user[0];
+      return Promise.resolve(user[0]);
     }
     throw new NotFoundException('User not found');
   }
