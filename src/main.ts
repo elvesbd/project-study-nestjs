@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -10,6 +10,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.use(Logger);
 
   await app.listen(3000);
 }
