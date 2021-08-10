@@ -1,7 +1,7 @@
 import {
+  BadRequestException,
   Body,
   Get,
-  ParseIntPipe,
   Post,
   UsePipes,
   ValidationPipe,
@@ -13,6 +13,7 @@ import { Controller } from '@nestjs/common';
 import { UserDto, UserParamsDto } from './dto/user.dto';
 import { User } from './interface/user';
 import { UsersServices } from './user.service';
+import { ParseIntPipe } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -20,7 +21,7 @@ export class UsersController {
 
   @Get()
   getUsers(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Query('sort') sort: boolean,
     @Body() data: UserDto,
   ): User[] {
@@ -28,13 +29,17 @@ export class UsersController {
   }
 
   @Get('/:email')
-  getUser(@Param() param: UserParamsDto): User {
-    return this.usersService.getUser(param.email);
+  async getUser(@Param() param: UserParamsDto): Promise<User> {
+    try {
+      return await this.usersService.getUser(param.email);
+    } catch (err) {
+      throw new BadRequestException('test');
+    }
   }
 
   @UsePipes(ValidationPipe)
   @Post('/create')
-  createUser(@Body() user: UserDto): User {
+  async createUser(@Body() user: UserDto): Promise<User> {
     return this.usersService.addUser(user);
   }
 
