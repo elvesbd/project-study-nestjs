@@ -10,9 +10,9 @@ export class UsersServices {
     return this.users;
   }
 
-  addUser(user: User): User {
+  addUser(user: User): Promise<User> {
     this.users.push(user);
-    return user;
+    return Promise.resolve(user);
   }
 
   getUser(email: string): User {
