@@ -1,4 +1,4 @@
-import { IsDefined, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsString } from 'class-validator';
 
 export class TaskDto {
   @IsDefined()
@@ -6,8 +6,4 @@ export class TaskDto {
   @IsDefined()
   @IsString()
   name: string;
-
-  @IsUUID()
-  @IsDefined()
-  id: string;
 }
