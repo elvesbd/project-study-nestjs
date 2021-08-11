@@ -1,8 +1,8 @@
 export interface Task {
-  id: string;
-  name: string;
-  completed: boolean;
-  description: string;
-  ownder: string;
-  duration: number;
+  name?: string;
+  uuid?: string;
+  completed?: boolean;
+  description?: string;
+  ownder?: string;
+  duration?: number;
 }
