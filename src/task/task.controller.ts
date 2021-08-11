@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Post,
   Res,
   ValidationPipe,
@@ -24,10 +26,9 @@ export class TaskController {
   }
 
   @UsePipes(ValidationPipe)
-  @Get(':id')
-  async getOneTask(@Param('id') id: string, @Res() res: Response) {
-    const data = await this.taskService.getTask(id);
-    return res.status(200).send(data);
+  @Get('/:id')
+  async getTaskById(@Param('id') id: string) {
+    return await this.taskService.getTask(id);
   }
 
   @UsePipes(ValidationPipe)
@@ -39,7 +40,7 @@ export class TaskController {
   }
 
   @UsePipes(ValidationPipe)
-  @Delete(':id')
+  @Delete('/:id')
   async deleteTaskById(@Param('id') id: string, @Res() res: Response) {
     const data = await this.taskService.getTask(id);
     return res.status(200).send(data);
