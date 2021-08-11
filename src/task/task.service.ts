@@ -5,7 +5,15 @@ import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class TaskService {
-  constructor(private readonly taskService: TaskStoreService) {}
+  constructor(private readonly taskStoreService: TaskStoreService) {}
+
+  public async getAllTasks(): Promise<Task[]> {
+    return this.taskStoreService.getAllTasks();
+  }
+
+  public async getTask(id: string): Promise<Task> {
+    return this.taskStoreService.getTask(id);
+  }
 
   public async addTask(task: Task): Promise<Task> {
     task.uuid = uuid();
@@ -13,14 +21,10 @@ export class TaskService {
     task.description = 'dummy';
     task.ownder = 'Tarun';
     task.duration = 2;
-    return this.taskService.addTask(task);
+    return this.taskStoreService.addTask(task);
   }
 
-  public async getTask(id: string): Promise<Task> {
-    return this.taskService.getTask(id);
-  }
-
-  public async getAllTasks(): Promise<Task[]> {
-    return this.taskService.getAllTasks();
+  public async deleteTasks(id: string): Promise<Task[]> {
+    return this.taskStoreService.deleteTask(id);
   }
 }
