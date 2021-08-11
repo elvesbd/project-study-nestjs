@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule } from '@nestjs/swagger';
+import { createDocument } from './swagger/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,8 +11,10 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  //app.setGlobalPrefix('api/v1');
-  //SwaggerModule.setup('api', app, createDocument(app));
+
+  app.setGlobalPrefix('api/v1');
+  SwaggerModule.setup('api', app, createDocument(app));
+
   await app.listen(3000);
 }
 bootstrap();

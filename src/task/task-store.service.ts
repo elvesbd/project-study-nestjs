@@ -7,8 +7,18 @@ export class TaskStoreService {
   public tasks: Task[] = [];
 
   public async getAllTasks(): Promise<Task[]> {
-    console.log(this.tasks);
     return Promise.resolve(this.tasks);
+  }
+
+  public async filterTask(filter): Promise<Task[]> {
+    if (!filter) {
+      return Promise.resolve(this.tasks);
+    }
+    return Promise.resolve(
+      this.tasks.filter((i: Task) => {
+        return i.duration > 0;
+      }),
+    );
   }
 
   public async getTask(id: string): Promise<Task> {
@@ -27,6 +37,12 @@ export class TaskStoreService {
   }
 
   public async deleteTask(id: string): Promise<Task[]> {
+    const task = this.tasks.filter((task) => task.uuid === id);
+
+    if (task.length === 0) {
+      throw new NotFoundException('task not found');
+    }
+
     const newTask = this.tasks.filter((task) => task.uuid != id);
     this.tasks = newTask;
     return Promise.resolve(this.tasks);
