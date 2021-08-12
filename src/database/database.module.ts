@@ -3,8 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/test', {
+    MongooseModule.forRoot('mongodb://localhost/test', {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     }),
   ],
   controllers: [],
